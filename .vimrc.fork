@@ -1,0 +1,19 @@
+set relativenumber              " relative numbers on
+set mouse=c                 " Automatically enable mouse usage
+
+unmap <C-e>
+map <F9> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+let NERDTreeWinPos="right"
+
+let g:solarized_contrast="high"
+let g:solarized_visibility="high"
+
+if isdirectory(expand("~/.vim/bundle/tagbar/"))
+    let g:tagbar_left = 1
+endif
+
+let s:path = resolve(expand("<sfile>"))
+let s:dir = fnamemodify(s:path, ":p:h")
+for s:file in split(globpath(s:dir, "**/*.vim"), "\n")
+    execute "source ". s:file
+endfor
