@@ -9,28 +9,21 @@ endfunction
 " Opens the according header or source files in the same directory.
 " Needed to be improved if the files don't lie in the same directory.
 function! <SID>EditHeaderSourceFile()
-    let l:supported_ext = ['c', 'cc', 'cpp', 'h']
     let l:items = split(expand('%:t'), '\.')
     if len(items) != 2
         return
     endif
 
-    let l:valid = 0
-    for l:ext in l:supported_ext
-        if l:items[1] == l:ext
-            let l:valid = 1
-            break
-        endif
-    endfor
-
-    if l:valid == 0
+    let l:supported_ext = ['c', 'cpp', 'cc', 'h', 'hpp']
+    let l:index = index(l:supported_ext, l:items[1])
+    if l:index < 0
         return
     endif
 
-    let l:fpath = [l:items[0] . '.h']
-    let l:source_ext = ['c', 'cc', 'cpp']
-    if l:items[1] == 'h'
-        let l:fpath = map(l:source_ext, 'l:items[0] . "." . v:val')
+    if l:index > 2
+        let l:fpath = map(l:supported_ext[0:2], 'l:items[0] . "." . v:val')
+    else
+        let l:fpath = map(l:supported_ext[3:], 'l:items[0] . "." . v:val')
     endif
 
     for file in l:fpath
