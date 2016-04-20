@@ -1,12 +1,17 @@
 set relativenumber              " relative numbers on
 set mouse=c                 " Automatically enable mouse usage
 
+let s:script_dir = fnamemodify(resolve(expand('<sfile>:p')), ':p:h')
+
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
 
 let g:ycm_python_binary_path = '/usr/bin/python3'
 let g:ycm_confirm_extra_conf = 0
 let g:ycm_open_loclist_on_ycm_diags = 1
+let g:ycm_disable_for_files_larger_than_kb = 640
+let g:ycm_filetype_extra_conf = { "cpp" : s:script_dir . '/ycm_extra_conf_cpp.py' }
+
 nnoremap <Leader>yc :YcmForceCompileAndDiagnostics<CR>
 nnoremap <Leader>yd :YcmDiag<CR>
 nnoremap <leader>yg :YcmCompleter GoToDeclaration<CR>
@@ -35,9 +40,11 @@ nmap <Leader>bf :bfirst<CR>
 nmap <Leader>bl :blast<CR>
 nmap <Leader>bn :bnext<CR>
 nmap <Leader>bp :bprevious<CR>
-nmap <Leader>vc :vimgrep <cword> *.c
-nmap <Leader>vp :vimgrep <cword> *.cpp
-nmap <Leader>vh :vimgrep <cword> *.h
+nmap <Leader>vc :lvimgrep <cword> *.c<CR>:lopen<CR>
+nmap <Leader>vd :lvimgrep <cword> *.cpp<CR>:lopen<CR>
+nmap <Leader>vp :lvimgrep <cword> *.py<CR>:lopen<CR>
+nmap <Leader>vh :lvimgrep <cword> *.h<CR>:lopen<CR>
+
 nmap <Leader>pd oimport pdb; pdb.set_trace()<Esc>:w<CR>
 nmap <Leader>dw dd:w<CR>
 
