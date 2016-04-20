@@ -1,16 +1,63 @@
 set relativenumber              " relative numbers on
 set mouse=c                 " Automatically enable mouse usage
 
-unmap <C-e>
-map <F9> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-let NERDTreeWinPos="right"
-
 let g:solarized_contrast="high"
 let g:solarized_visibility="high"
+
+let g:ycm_python_binary_path = '/usr/bin/python3'
+let g:ycm_confirm_extra_conf = 0
+let g:ycm_open_loclist_on_ycm_diags = 1
+nnoremap <Leader>yc :YcmForceCompileAndDiagnostics<CR>
+nnoremap <Leader>yd :YcmDiag<CR>
+nnoremap <leader>yg :YcmCompleter GoToDeclaration<CR>
+nnoremap <leader>yf :YcmCompleter GoToDefinition<CR>
+nnoremap <leader>ye :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 if isdirectory(expand("~/.vim/bundle/tagbar/"))
     let g:tagbar_left = 1
 endif
+
+unmap <C-e>
+map <F9> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+let NERDTreeWinPos="right"
+
+unmap <leader>tt
+nnoremap <silent> <leader>tg :TagbarToggle<CR>
+
+" self unplugin-related keymap. Thest start 's' is for self.
+nmap <Leader>sp   :set paste!<CR>                  " toggle paste
+nmap <Leader>sn   :set number! relativenumber!<CR> " toggle number options
+nmap <Leader>rts :%s/ \+$//ge<CR>                   " remove trailing spaces
+nmap <Leader>s<Space> i <Esc>2li <Esc>
+nmap ZA :qa<CR>
+nmap <Leader>bu :buffers<CR>
+nmap <Leader>bf :bfirst<CR>
+nmap <Leader>bl :blast<CR>
+nmap <Leader>bn :bnext<CR>
+nmap <Leader>bp :bprevious<CR>
+nmap <Leader>vc :vimgrep <cword> *.c
+nmap <Leader>vp :vimgrep <cword> *.cpp
+nmap <Leader>vh :vimgrep <cword> *.h
+nmap <Leader>pd oimport pdb; pdb.set_trace()<Esc>:w<CR>
+nmap <Leader>dw dd:w<CR>
+
+nmap <Leader>lo :lopen<CR>
+nmap <Leader>ln :lnext<CR>
+nmap <Leader>lp :lprevious<CR>
+nmap <Leader>ld :lolder<CR>
+nmap <Leader>le :lnewer<CR>
+nmap <Leader>lc :lclose<CR>
+nmap <Leader>lw :lwindow<CR>
+nmap <Leader>lm :lmake<CR>
+
+imap <C-E> <End>
+imap <C-A> <Home>
+imap <C-j> <Up>
+imap <C-k> <Down>
+imap <C-B> <Left>
+imap <C-F> <Right>
+imap <C-I> <C-O>I
+imap <C-Z> <C-O>u
 
 let s:path = resolve(expand("<sfile>"))
 let s:dir = fnamemodify(s:path, ":p:h")
